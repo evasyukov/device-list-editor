@@ -2,13 +2,16 @@
   <div class="device-list">
     <button class="add-button" @click="addDevice">Добавить устройство</button>
     <ul class="device-items">
-      <li v-for="device in devices" :key="device.id" class="device-item"></li>
+      <li v-for="device in devices" :key="device.id" class="device-item">
+        <Device :device="device" />
+      </li>
     </ul>
   </div>
 </template>
 
 <script setup>
 import { useDeviceStore } from "../store/devices"
+import Device from "./Device.vue"
 
 const deviceStore = useDeviceStore()
 const { devices, addDevice } = deviceStore
