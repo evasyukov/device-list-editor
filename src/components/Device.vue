@@ -1,6 +1,6 @@
 <template>
   <!-- редактирование устройства -->
-  <DeviceEditing v-if="editing" :device="device" />
+  <DeviceEditing v-if="editing" :device="device" @toggle-edit="toggleEdit" />
 
   <!-- блок с информацией о устройстве -->
   <div v-else class="device_info">
@@ -26,18 +26,11 @@ import DeviceEditing from "./DeviceEditing.vue"
 
 const props = defineProps(["device"])
 const editing = ref(false)
-const deviceName = ref(props.device.name)
 const deviceStore = useDeviceStore()
 
 // переключение режима редактирования
 const toggleEdit = () => {
   editing.value = !editing.value
-}
-
-// сохранение изменений устройства
-const saveEdit = () => {
-  deviceStore.editDevice(props.device.id, deviceName.value)
-  editing.value = false
 }
 </script>
 
@@ -88,9 +81,5 @@ const saveEdit = () => {
       }
     }
   }
-}
-
-.nodes {
-  margin-top: 10px;
 }
 </style>

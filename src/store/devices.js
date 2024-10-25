@@ -15,10 +15,26 @@ export const useDeviceStore = defineStore("deviceStore", () => {
     },
   ])
 
-  // генерация id устройства
-  const generateId = () => {
-    let id = devices.length + 1
-    return id
+  // генерация id для устройств
+  const generateIdDevice = () => {
+    let deviceIdCounter = devices.length + 1
+    return deviceIdCounter
+  }
+
+  // генерация id для узлов
+  const generateIdNode = () => {
+    let nodeIdCounter =
+      Math.max(...devices.flatMap((d) => d.nodes.map((n) => n.id)), 0) + 1
+    return () => nodeIdCounter++
+  }
+
+  // добавление устройства
+  const addDevice = () => {
+    devices.push({
+      id: generateIdDevice(),
+      name: "Новое устройство",
+      nodes: [],
+    })
   }
 
   // редактирование устройства
@@ -29,13 +45,15 @@ export const useDeviceStore = defineStore("deviceStore", () => {
     }
   }
 
-  // добавление устройства
-  const addDevice = () => {
-    devices.push({
-      id: generateId(),
-      name: "Новое устройство",
-      nodes: [],
-    })
+  // редактирование узла
+  const editNode = (deviceId, nodeId, newName) => {
+    const device = devices.find((d) => d.id === deviceId)
+    if (device) {
+      const node = device.nodes.find((n) => n.id === nodeId)
+      if (node) {
+        node.name = newName
+      }
+    }
   }
 
   // удаление устройства
@@ -46,10 +64,29 @@ export const useDeviceStore = defineStore("deviceStore", () => {
     }
   }
 
+  // добавление узла к устройству
+  const addNodeToDevice = (deviceId) => {
+    const device = devices.find((device) => device.id === deviceId)
+    if (device) {
+      device.nodes.push({ id: generateIdNode(), name: "Новый узел" })
+    }
+  }
+
+  // удаление узла
+  const removeNodeFromDevice = (deviceId, nodeId) => {
+    const device = devices.find((d) => d.id === deviceId)
+    if (device) {
+      device.nodes = device.nodes.filter((node) => node.id !== nodeId)
+    }
+  }
+
   return {
     devices,
     addDevice,
-    removeDevice,
     editDevice,
+    editNode,
+    removeDevice,
+    addNodeToDevice,
+    removeNodeFromDevice,
   }
 })
