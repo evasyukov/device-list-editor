@@ -1,5 +1,30 @@
-# Vue 3 + Vite
+# Редактор списка устройств и их узлов учёта
+Простое одностраничное приложение для управления списком устройств и их узлов, разработанное на Vue.js с использованием Pinia для управления состоянием. 
+Проект позволяет добавлять, редактировать и удалять устройства, а также управлять отдельными узлами внутри каждого устройства.
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Стек технологий
+- Vue.js
+- Pinia
+- Vite
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Установка и запуск проекта
+1. Клонируйте репозиторий:
+    ```bash
+    git clone https://github.com/evasyukov/sreda.tech-test.git
+    ```
+
+2. Перейдите в директорию проекта:
+    ```bash
+    cd sreda.tech-test
+    ```
+
+3. Установите зависимости:
+    ```bash
+    npm install
+    ```
+
+4. Запустите проект:
+    ```bash
+    npm run dev
+    ```
+
