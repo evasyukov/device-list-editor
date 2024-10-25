@@ -20,14 +20,17 @@ const { devices, addDevice } = deviceStore
 <style scoped lang="scss">
 .device-list {
   .add-button {
-    background-color: #000000;
-    color: white;
+    background-color: #328775;
+    color: #fff;
+
     padding: 10px 20px;
+    
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
     cursor: pointer;
-    &:hover {
-      background-color: #00000056;
+
+   &:hover {
+      background-color: #51d1b5;
     }
   }
 
@@ -38,10 +41,10 @@ const { devices, addDevice } = deviceStore
 
     .device-item {
       padding: 10px;
-      background-color: rgba(255, 255, 255, 0.648);
+      background-color: #edf5e1b8 ;
       border-radius: 5px;
       margin-top: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 2px 2px 4px rgb(0, 0, 0);
     }
   }
 }
