@@ -15,7 +15,13 @@ export const useDeviceStore = defineStore("deviceStore", () => {
     },
   ])
 
-  // редактирование узла устройства
+  // генерация id устройства
+  const generateId = () => {
+    let id = devices.length + 1
+    return id
+  }
+
+  // редактирование устройства
   const editDevice = (id, newName) => {
     const device = devices.find((device) => device.id === id)
     if (device) {
@@ -23,8 +29,27 @@ export const useDeviceStore = defineStore("deviceStore", () => {
     }
   }
 
+  // добавление устройства
+  const addDevice = () => {
+    devices.push({
+      id: generateId(),
+      name: "Новое устройство",
+      nodes: [],
+    })
+  }
+
+  // удаление устройства
+  const removeDevice = (id) => {
+    const index = devices.findIndex((device) => device.id === id)
+    if (index !== -1) {
+      devices.splice(index, 1)
+    }
+  }
+
   return {
     devices,
+    addDevice,
+    removeDevice,
     editDevice,
   }
 })

@@ -1,25 +1,12 @@
 <template>
-  <!-- блок редактирования устройства -->
-  <div v-if="editing">
-    <input v-model="deviceName" placeholder="Название устройства" />
-    <div class="nodes">
-      <h4>Узлы устройства</h4>
-      <ul>
-        <li v-for="node in device.nodes" :key="node.id">
-          {{ node.name }}
-        </li>
-      </ul>
-      <button @click="addNode">Добавить узел</button>
-    </div>
+  <!-- редактирование устройства -->
+  <DeviceEditing v-if="editing" :device="device" />
 
-    <button @click="saveEdit">Сохранить</button>
-  </div>
-
-  <!-- блок с устройством -->
+  <!-- блок с информацией о устройстве -->
   <div v-else class="device_info">
     <div class="device_info_name">
       <span>{{ device.name }}</span>
-      <button>Удалить</button>
+      <button @click="deviceStore.removeDevice(device.id)">Удалить</button>
     </div>
 
     <ul>
@@ -35,7 +22,7 @@
 import { ref } from "vue"
 import { useDeviceStore } from "../store/devices"
 
-import Node from "./Node.vue"
+import DeviceEditing from "./DeviceEditing.vue"
 
 const props = defineProps(["device"])
 const editing = ref(false)
@@ -56,8 +43,7 @@ const saveEdit = () => {
 
 <style scoped lang="scss">
 .device_info {
-
-  span{
+  span {
     font-weight: 600;
     font-size: 20px;
   }
@@ -107,5 +93,4 @@ const saveEdit = () => {
 .nodes {
   margin-top: 10px;
 }
-
 </style>
