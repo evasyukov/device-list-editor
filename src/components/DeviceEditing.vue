@@ -2,15 +2,21 @@
   <div class="device-editing">
     <input v-model="deviceName" placeholder="Название устройства" />
 
-    <!-- список узлов устройства -->
-    <div
-      class="device-editing_node"
-      v-for="node in device.nodes"
-      :key="node.id"
+    <!-- Список узлов устройства с использованием draggable -->
+    <draggable
+      class="node-list"
+      v-model="device.nodes"
+      @end="onDragEnd"
+      :move="checkMove"
+      item-key="id"
     >
-      <input v-model="node.name" placeholder="Название узла" />
-      <button @click="removeNode(node.id)">Удалить узел</button>
-    </div>
+      <template #item="{ element }">
+        <div class="node-item">
+          <input v-model="element.name" placeholder="Название узла" />
+          <button @click="removeNode(element.id)">Удалить узел</button>
+        </div>
+      </template>
+    </draggable>
 
     <!-- кнопки управления -->
     <div class="device-editing_controls">
@@ -23,11 +29,12 @@
 <script setup>
 import { ref } from "vue"
 import { useDeviceStore } from "../store/devices"
+import draggable from "vuedraggable"
 
 const props = defineProps(["device"])
 const emit = defineEmits(["toggleEdit"])
-const deviceStore = useDeviceStore()
 
+const deviceStore = useDeviceStore()
 const deviceName = ref(props.device.name)
 
 // сохранение изменений
@@ -45,6 +52,10 @@ const addNode = () => {
 // удаление узла
 const removeNode = (nodeId) => {
   deviceStore.removeNodeFromDevice(props.device.id, nodeId)
+}
+
+const checkMove = (evt) => {
+  return !isInputFocused.value
 }
 </script>
 
@@ -83,52 +94,11 @@ const removeNode = (nodeId) => {
       }
     }
   }
-
-  &_node {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin-bottom: 5px;
-    border-top: 1px solid #000000;
-
-    input {
-      background-color: #328774b3;
-      color: #fff;
-
-      border: none;
-      border-radius: 5px;
-
-      padding: 7px;
-      margin-top: 5px;
-      font-size: 16px;
-    }
-
-    button {
-      margin-right: 5px;
-      background-color: #f0531d;
-      color: #fff;
-      font-size: 12px;
-      padding: 5px 10px;
-
-      border: 1px solid #000000;
-      border-radius: 5px;
-      cursor: pointer;
-      &:hover {
-        background-color: #ee8d6c;
-      }
-    }
-  }
 }
 
-.node {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 8px;
-
-  // border: 1px solid #000000;
+.node-list {
+  margin-bottom: 5px;
+  border-top: 1px solid #000000;
 
   input {
     background-color: #328774b3;
@@ -140,6 +110,28 @@ const removeNode = (nodeId) => {
     padding: 7px;
     margin-top: 5px;
     font-size: 16px;
+  }
+}
+
+.node-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    margin-right: 5px;
+    background-color: #f0531d;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 10px;
+
+    border: 1px solid #000000;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ee8d6c;
+    }
   }
 }
 </style>
