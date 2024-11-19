@@ -2,7 +2,7 @@
 Простое одностраничное приложение для управления списком устройств и их узлов, разработанное на Vue.js с использованием Pinia для управления состоянием. 
 Проект позволяет добавлять, редактировать и удалять устройства, а также управлять отдельными узлами внутри каждого устройства.
 
-[Демо](https://evasyukov.github.io/sreda.tech-test/)
+[Демо](https://evasyukov.github.io/device-list-editor/)
 
 ## Стек технологий
 - Vue.js
@@ -12,12 +12,12 @@
 ## Установка и запуск проекта
 1. Клонируйте репозиторий:
     ```bash
-    git clone https://github.com/evasyukov/sreda.tech-test.git
+    git clone https://github.com/evasyukov/device-list-editor.git
     ```
 
 2. Перейдите в директорию проекта:
     ```bash
-    cd sreda.tech-test
+    cd device-list-editor
     ```
 
 3. Установите зависимости:
